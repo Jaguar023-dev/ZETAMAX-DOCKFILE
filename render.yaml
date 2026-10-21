@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: zetamax-whatsapp-worker
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./worker/Dockerfile
+    dockerContext: ./worker
+    healthCheckPath: /health
+    envVars:
+      - key: ZETAMAX_WORKER_TOKEN
+        generateValue: true
+      - key: SESSION_DIR
+        value: /data/sessions
+    disk:
+      name: zetamax-whatsapp-sessions
+      mountPath: /data
+      sizeGB: 1
